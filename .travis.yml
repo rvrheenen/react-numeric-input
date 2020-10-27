@@ -1,7 +1,6 @@
 language: node_js
 node_js:
-  - "node" # Specifying node will run using the latest stable Node.js release
-  - 6.11.1 # LTS
+  - "node"
 services:
   - xvfb
 before_install:
