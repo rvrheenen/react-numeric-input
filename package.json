@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vlad-ignatov/react-numeric-input.git"
+    "url": "git+https://github.com/rvrheenen/react-numeric-input.git"
   },
   "keywords": [
     "react",
@@ -27,9 +27,9 @@
   "author": "Vladimir Ignatov",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vlad-ignatov/react-numeric-input/issues"
+    "url": "https://github.com/rvrheenen/react-numeric-input/issues"
   },
-  "homepage": "https://github.com/vlad-ignatov/react-numeric-input#readme",
+  "homepage": "https://github.com/rvrheenen/react-numeric-input#readme",
   "devDependencies": {
     "babel": "^6.3.26",
     "babel-core": "^6.4.5",
