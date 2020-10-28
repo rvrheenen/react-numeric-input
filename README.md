@@ -7,7 +7,8 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-informational.svg)](https://paypal.me/rivartech)
 [![Donate](https://img.shields.io/badge/Donate-Liberapay-informational.svg)](https://liberapay.com/rvrheenen)
 [![Donate](https://img.shields.io/badge/Donate-Crypto-informational.svg)](https://commerce.coinbase.com/checkout/c1219cf1-95da-4bdb-8089-7baddb1a2d34)
-This is forked from [https://github.com/vlad-ignatov/react-numeric-input](https://github.com/vlad-ignatov/react-numeric-input)
+
+This is forked from [https://github.com/vlad-ignatov/react-numeric-input](https://github.com/vlad-ignatov/react-numeric-input) to include any and all bugfixes and optimizations from the community.
 
 Number input component that can replace the native number input which is not yet
 very well supported and where it is, it does not have the same appearance across
