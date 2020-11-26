@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/rvrheenen/react-numeric-input.svg?branch=master)](https://travis-ci.org/rvrheenen/react-numeric-input)
 [![Last commit](https://img.shields.io/github/last-commit/rvrheenen/react-numeric-input)](https://github.com/rvrheenen/react-numeric-input)
-[![Downloads](https://img.shields.io/npm/dt/react-numeric-input)](https://www.npmjs.com/package/react-numeric-input)
+[![Downloads](https://img.shields.io/npm/dt/react-numeric-input2)](https://www.npmjs.com/package/react-numeric-input2)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/rvrheenen/react-numeric-input/blob/master/LICENSE)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-informational.svg)](https://paypal.me/rivartech)
 [![Donate](https://img.shields.io/badge/Donate-Liberapay-informational.svg)](https://liberapay.com/rvrheenen)

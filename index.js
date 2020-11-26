@@ -154,8 +154,8 @@ module.exports =
 	            return out;
 	        }
 	    }, {
-	        key: 'UNSAFE_componentWillReceiveProps',
-	        value: function UNSAFE_componentWillReceiveProps(props) {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(props) {
 	            var _this2 = this;
 
 	            this._isStrict = !!props.strict;
@@ -168,8 +168,8 @@ module.exports =
 	            }
 	        }
 	    }, {
-	        key: 'UNSAFE_componentWillUpdate',
-	        value: function UNSAFE_componentWillUpdate() {
+	        key: 'componentWillUpdate',
+	        value: function componentWillUpdate() {
 	            this.saveSelection();
 	        }
 	    }, {
