@@ -263,8 +263,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps(props) {
+	        key: 'UNSAFE_componentWillReceiveProps',
+	        value: function UNSAFE_componentWillReceiveProps(props) {
 	            var _this2 = this;
 
 	            this._isStrict = !!props.strict;
@@ -282,8 +282,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: 'componentWillUpdate',
-	        value: function componentWillUpdate() {
+	        key: 'UNSAFE_componentWillUpdate',
+	        value: function UNSAFE_componentWillUpdate() {
 	            this.saveSelection();
 	        }
 
