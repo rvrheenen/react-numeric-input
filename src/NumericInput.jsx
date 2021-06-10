@@ -7,6 +7,8 @@ const KEYCODE_DOWN         = 40;
 const IS_BROWSER           = typeof document != 'undefined';
 const RE_NUMBER            = /^[+-]?((\.\d+)|(\d+(\.\d+)?))$/;
 const RE_INCOMPLETE_NUMBER = /^([+-]0?|[0-9]*\.0*|[+-]\.0*|[+-]?\d+\.)?$/;
+const MULTIPLIER_CTRL      = 2
+const MULTIPLIER_SHIFT     = 5
 
 /**
  * Just a simple helper to provide support for older IEs. This is not exactly a
@@ -70,6 +72,7 @@ type NumericInputState = {
     btnUpActive   ?: boolean;
     value         ?: number | null;
     stringValue   ?: string;
+    stepMultiplier?: number | 1;
 }
 /*eslint-enable*/
 
@@ -88,6 +91,7 @@ class NumericInput extends Component
         readOnly     : PropTypes.bool,
         required     : PropTypes.bool,
         snap         : PropTypes.bool,
+        altClickMult: PropTypes.bool,
         noValidate   : PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
         style        : PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
         noStyle      : PropTypes.bool,
@@ -757,7 +761,7 @@ class NumericInput extends Component
     increase(_recursive: boolean = false, callback?: Function): void
     {
         this.stop();
-        this._step(1, callback);
+        this._step(this.state.stepMultiplier, callback);
         let _max = +access(this.props, "max", NumericInput.defaultProps.max, this);
         if (isNaN(this.state.value) || +this.state.value < _max) {
             this._timer = setTimeout(() => {
@@ -777,7 +781,7 @@ class NumericInput extends Component
     decrease(_recursive: boolean = false, callback?: Function): void
     {
         this.stop();
-        this._step(-1, callback);
+        this._step(-this.state.stepMultiplier, callback);
         let _min = +access(this.props, "min", NumericInput.defaultProps.min, this);
         if (isNaN(this.state.value) || +this.state.value > _min) {
             this._timer = setTimeout(() => {
@@ -849,7 +853,7 @@ class NumericInput extends Component
 
         let {
             // These are ignored in rendering
-            step, min, max, precision, parse, format, mobile, snap, componentClass,
+            step, min, max, precision, parse, format, mobile, snap, altClickMult, componentClass,
             value, type, style, defaultValue, onInvalid, onValid, strict, noStyle,
 
             // The rest are passed to the input
@@ -1006,22 +1010,32 @@ class NumericInput extends Component
                     this.stop();
                     this.setState({
                         btnUpHover : false,
-                        btnUpActive: false
+                        btnUpActive: false,
+                        stepMultiplier: 1
                     });
                 },
                 onMouseUp: () => {
                     this.setState({
                         btnUpHover  : true,
-                        btnUpActive : false
+                        btnUpActive : false,
+                        stepMultiplier: 1
                     });
                 },
                 onMouseDown: (...args) => {
                     args[0].preventDefault();
                     args[0].persist();
+                    let stepMultiplier = 1;
+                    if (props.altClickMult && args[0].ctrlKey) {
+                      stepMultiplier *= MULTIPLIER_CTRL;
+                    }
+                    if (props.altClickMult && args[0].shiftKey) {
+                      stepMultiplier *= MULTIPLIER_SHIFT;
+                    }
                     this._inputFocus = true;
                     this.setState({
                         btnUpHover  : true,
-                        btnUpActive : true
+                        btnUpActive : true,
+                        stepMultiplier
                     }, () => {
                         this._invokeEventCallback("onFocus", ...args)
                         this.onMouseDown('up');
@@ -1035,29 +1049,40 @@ class NumericInput extends Component
                 onTouchEnd: this.onTouchEnd,
                 onMouseEnter: () => {
                     this.setState({
-                        btnDownHover : true
+                        btnDownHover : true,
+                        stepMultiplier: 1
                     });
                 },
                 onMouseLeave: () => {
                     this.stop();
                     this.setState({
                         btnDownHover : false,
-                        btnDownActive: false
+                        btnDownActive: false,
+                        stepMultiplier: 1
                     });
                 },
                 onMouseUp: () => {
                     this.setState({
                         btnDownHover  : true,
-                        btnDownActive : false
+                        btnDownActive : false,
+                        stepMultiplier: 1
                     });
                 },
                 onMouseDown: (...args) => {
                     args[0].preventDefault();
                     args[0].persist();
+                    let stepMultiplier = 1;
+                    if (props.altClickMult && args[0].ctrlKey) {
+                      stepMultiplier *= MULTIPLIER_CTRL;
+                    }
+                    if (props.altClickMult && args[0].shiftKey) {
+                      stepMultiplier *= MULTIPLIER_SHIFT;
+                    }
                     this._inputFocus = true;
                     this.setState({
                         btnDownHover  : true,
-                        btnDownActive : true
+                        btnDownActive : true,
+                        stepMultiplier
                     }, () => {
                         this._invokeEventCallback("onFocus", ...args)
                         this.onMouseDown('down');

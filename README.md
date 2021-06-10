@@ -63,6 +63,11 @@ or decrementing (up/down buttons or arrow keys) you can use the `snap` prop:
 ```jsx
 <NumericInput step={0.5} precision={2} value={50.3} snap/>
 ```
+#### multiply step
+If you want your component to increase by more when clicking with ctrl (2) or shift (5):
+```jsx
+<NumericInput altClickMult/>
+```
 
 #### Strict vs Loose Mode
 You can type any value in the input as long as it is in focus. On blur, or when
@@ -111,6 +116,7 @@ Name              | Type                                | Default
 **snap**          |`boolean`                            | none (false)
 **componentClass**|`string` or `function`               |`"input"`
 **strict**        |`boolean`                            |`false`
+**altClickMult**  |`boolean`                            |`false`
 
 Any other option is passed directly the input created by the component. Just
 don't forget to camelCase the attributes. For example `readonly` must be `readOnly`.

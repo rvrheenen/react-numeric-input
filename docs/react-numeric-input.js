@@ -83,6 +83,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var IS_BROWSER = typeof document != 'undefined';
 	var RE_NUMBER = /^[+-]?((\.\d+)|(\d+(\.\d+)?))$/;
 	var RE_INCOMPLETE_NUMBER = /^([+-]0?|[0-9]*\.0*|[+-]\.0*|[+-]?\d+\.)?$/;
+	var MULTIPLIER_CTRL = 2;
+	var MULTIPLIER_SHIFT = 5;
 
 	/**
 	 * Just a simple helper to provide support for older IEs. This is not exactly a
@@ -623,7 +625,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var callback = arguments[1];
 
 	            this.stop();
-	            this._step(1, callback);
+	            this._step(this.state.stepMultiplier, callback);
 	            var _max = +access(this.props, "max", NumericInput.defaultProps.max, this);
 	            if (isNaN(this.state.value) || +this.state.value < _max) {
 	                this._timer = setTimeout(function () {
@@ -651,7 +653,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var callback = arguments[1];
 
 	            this.stop();
-	            this._step(-1, callback);
+	            this._step(-this.state.stepMultiplier, callback);
 	            var _min = +access(this.props, "min", NumericInput.defaultProps.min, this);
 	            if (isNaN(this.state.value) || +this.state.value > _min) {
 	                this._timer = setTimeout(function () {
@@ -744,6 +746,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                format = _props.format,
 	                mobile = _props.mobile,
 	                snap = _props.snap,
+	                altClickMult = _props.altClickMult,
 	                componentClass = _props.componentClass,
 	                value = _props.value,
 	                type = _props.type,
@@ -753,7 +756,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                onValid = _props.onValid,
 	                strict = _props.strict,
 	                noStyle = _props.noStyle,
-	                rest = _objectWithoutProperties(_props, ['step', 'min', 'max', 'precision', 'parse', 'format', 'mobile', 'snap', 'componentClass', 'value', 'type', 'style', 'defaultValue', 'onInvalid', 'onValid', 'strict', 'noStyle']);
+	                rest = _objectWithoutProperties(_props, ['step', 'min', 'max', 'precision', 'parse', 'format', 'mobile', 'snap', 'altClickMult', 'componentClass', 'value', 'type', 'style', 'defaultValue', 'onInvalid', 'onValid', 'strict', 'noStyle']);
 
 	            noStyle = noStyle || style === false;
 
@@ -876,13 +879,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        _this6.stop();
 	                        _this6.setState({
 	                            btnUpHover: false,
-	                            btnUpActive: false
+	                            btnUpActive: false,
+	                            stepMultiplier: 1
 	                        });
 	                    },
 	                    onMouseUp: function onMouseUp() {
 	                        _this6.setState({
 	                            btnUpHover: true,
-	                            btnUpActive: false
+	                            btnUpActive: false,
+	                            stepMultiplier: 1
 	                        });
 	                    },
 	                    onMouseDown: function onMouseDown() {
@@ -892,10 +897,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                        args[0].preventDefault();
 	                        args[0].persist();
+	                        var stepMultiplier = 1;
+	                        if (props.altClickMult && args[0].ctrlKey) {
+	                            stepMultiplier *= MULTIPLIER_CTRL;
+	                        }
+	                        if (props.altClickMult && args[0].shiftKey) {
+	                            stepMultiplier *= MULTIPLIER_SHIFT;
+	                        }
 	                        _this6._inputFocus = true;
 	                        _this6.setState({
 	                            btnUpHover: true,
-	                            btnUpActive: true
+	                            btnUpActive: true,
+	                            stepMultiplier: stepMultiplier
 	                        }, function () {
 	                            _this6._invokeEventCallback.apply(_this6, ["onFocus"].concat(args));
 	                            _this6.onMouseDown('up');
@@ -908,20 +921,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    onTouchEnd: this.onTouchEnd,
 	                    onMouseEnter: function onMouseEnter() {
 	                        _this6.setState({
-	                            btnDownHover: true
+	                            btnDownHover: true,
+	                            stepMultiplier: 1
 	                        });
 	                    },
 	                    onMouseLeave: function onMouseLeave() {
 	                        _this6.stop();
 	                        _this6.setState({
 	                            btnDownHover: false,
-	                            btnDownActive: false
+	                            btnDownActive: false,
+	                            stepMultiplier: 1
 	                        });
 	                    },
 	                    onMouseUp: function onMouseUp() {
 	                        _this6.setState({
 	                            btnDownHover: true,
-	                            btnDownActive: false
+	                            btnDownActive: false,
+	                            stepMultiplier: 1
 	                        });
 	                    },
 	                    onMouseDown: function onMouseDown() {
@@ -931,10 +947,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	                        args[0].preventDefault();
 	                        args[0].persist();
+	                        var stepMultiplier = 1;
+	                        if (props.altClickMult && args[0].ctrlKey) {
+	                            stepMultiplier *= MULTIPLIER_CTRL;
+	                        }
+	                        if (props.altClickMult && args[0].shiftKey) {
+	                            stepMultiplier *= MULTIPLIER_SHIFT;
+	                        }
 	                        _this6._inputFocus = true;
 	                        _this6.setState({
 	                            btnDownHover: true,
-	                            btnDownActive: true
+	                            btnDownActive: true,
+	                            stepMultiplier: stepMultiplier
 	                        }, function () {
 	                            _this6._invokeEventCallback.apply(_this6, ["onFocus"].concat(args));
 	                            _this6.onMouseDown('down');
@@ -1065,6 +1089,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    readOnly: _propTypes2.default.bool,
 	    required: _propTypes2.default.bool,
 	    snap: _propTypes2.default.bool,
+	    altClickMult: _propTypes2.default.bool,
 	    noValidate: _propTypes2.default.oneOfType([_propTypes2.default.bool, _propTypes2.default.string]),
 	    style: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.bool]),
 	    noStyle: _propTypes2.default.bool,
