@@ -23,6 +23,7 @@ export default class Demo extends React.Component
                 pattern   : { value: "[0-9].[0-9][0-9]", on: false },
                 title     : { value: "The title attr",   on: false },
                 snap      : { value: true,               on: false },
+                altClickMult : { value: true,               on: false },
                 inputmode : { value: "numeric",          on: false },
                 strict    : { value: true,               on: false },
                 noStyle   : { value: true,               on: false }
@@ -190,10 +191,11 @@ export default class Demo extends React.Component
                                         { name: "title"     , type: "text"   },
                                         { name: "required"  , type: "bool"   },
                                         { name: "noValidate", type: "bool"   },
+                                        { name: "altClickMult", type: "bool"   },
                                         { name: "inputmode" , type: "text"   },
                                         { name: "snap"      , type: "bool"   },
                                         { name: "strict"    , type: "bool"   },
-                                        { name: "noStyle"   , type: "bool"   }
+                                        { name: "noStyle"   , type: "bool"   },
                                     ])}
                                     {/*
                                     parse	function	parseFloat
