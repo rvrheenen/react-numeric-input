@@ -1025,7 +1025,7 @@ class NumericInput extends Component
                     args[0].preventDefault();
                     args[0].persist();
                     let stepMultiplier = 1;
-                    if (props.altClickMult && args[0].ctrlKey) {
+                    if (props.altClickMult && (args[0].ctrlKey || args[0].metaKey)) {
                       stepMultiplier *= MULTIPLIER_CTRL;
                     }
                     if (props.altClickMult && args[0].shiftKey) {
@@ -1072,7 +1072,7 @@ class NumericInput extends Component
                     args[0].preventDefault();
                     args[0].persist();
                     let stepMultiplier = 1;
-                    if (props.altClickMult && args[0].ctrlKey) {
+                    if (props.altClickMult && (args[0].ctrlKey || args[0].metaKey)) {
                       stepMultiplier *= MULTIPLIER_CTRL;
                     }
                     if (props.altClickMult && args[0].shiftKey) {
